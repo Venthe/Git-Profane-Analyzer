@@ -1,0 +1,2 @@
+unidiff==0.6.0
+alt-profanity-check==0.24.0

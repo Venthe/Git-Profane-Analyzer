@@ -1,0 +1,39 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Docker build",
+            "type": "shell",
+            "command": "docker",
+            "args": ["build", ".", "--tag=pc-analyzer:${input:version}"]
+        },
+        {
+            "label": "Scan for vulnerabilities",
+            "type": "shell",
+            "command": "docker",
+            "args": ["scan", "--accept-license", "pc-analyzer:${input:version}"]
+        },
+        {
+            "label": "Show example 1",
+            "type": "shell",
+            "command": "docker",
+            "args": ["run", "--interactive", "--tty", "--rm", "--volume='${workspaceFolder}/example/:/usr/src/app/example'", "pc-analyzer:${input:version}", "--pretty-print", "--file", "./example/1.patch"]
+        },
+        {
+            "label": "Show example 2",
+            "type": "shell",
+            "command": "docker",
+            "args": ["run", "--interactive", "--tty", "--rm", "--volume='${workspaceFolder}/example/:/usr/src/app/example'", "pc-analyzer:${input:version}", "--pretty-print", "--file", "./example/2.patch"]
+        }
+    ],
+    "inputs": [
+        {
+          "type": "promptString",
+          "id": "version",
+          "description": "Version of docker image.",
+          "default": "latest"
+        }
+    ]
+}
