@@ -7,25 +7,31 @@
             "label": "Docker build",
             "type": "shell",
             "command": "docker",
-            "args": ["build", ".", "--tag=pc-analyzer:${input:version}"]
+            "args": ["build", ".", "--tag=docker.io/venthe/pc-analyzer:${input:version}"]
         },
         {
             "label": "Scan for vulnerabilities",
             "type": "shell",
             "command": "docker",
-            "args": ["scan", "--accept-license", "pc-analyzer:${input:version}"]
+            "args": ["scan", "--accept-license", "docker.io/venthe/pc-analyzer:${input:version}"]
         },
         {
             "label": "Show example 1",
             "type": "shell",
             "command": "docker",
-            "args": ["run", "--interactive", "--tty", "--rm", "--volume='${workspaceFolder}/example/:/usr/src/app/example'", "pc-analyzer:${input:version}", "--pretty-print", "--file", "./example/1.patch"]
+            "args": ["run", "--interactive", "--tty", "--rm", "--volume='${workspaceFolder}/example/:/usr/src/app/example'", "docker.io/venthe/pc-analyzer:${input:version}", "--pretty-print", "--file", "./example/1.patch"]
         },
         {
             "label": "Show example 2",
             "type": "shell",
             "command": "docker",
-            "args": ["run", "--interactive", "--tty", "--rm", "--volume='${workspaceFolder}/example/:/usr/src/app/example'", "pc-analyzer:${input:version}", "--pretty-print", "--file", "./example/2.patch"]
+            "args": ["run", "--interactive", "--tty", "--rm", "--volume='${workspaceFolder}/example/:/usr/src/app/example'", "docker.io/venthe/pc-analyzer:${input:version}", "--pretty-print", "--file", "./example/2.patch"]
+        },
+        {
+            "label": "Docker push",
+            "type": "shell",
+            "command": "docker",
+            "args": ["push", "docker.io/venthe/pc-analyzer:${input:version}"]
         }
     ],
     "inputs": [
